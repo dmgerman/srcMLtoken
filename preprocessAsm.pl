@@ -28,6 +28,8 @@ my $lines = join ('',@all);
 
 my @linesNC = split(/\n/, strip_comments($lines));
 
+print "being_unit\n";
+
 foreach my $l (@linesNC) {
     if ($l =~ /^comment/) {
         print $l, "\n";
@@ -44,6 +46,7 @@ foreach my $l (@linesNC) {
     print "$l\n";
 }
 
+print "end_unit\n";
 
 sub strip_comments {
     my $string=shift;
