@@ -63,6 +63,7 @@ srcml2tokenHandlers::~srcml2tokenHandlers()
 void srcml2tokenHandlers::setPosition(const std::string newPos)
 {
     pos = newPos;
+    //std::cout << "setting position " << newPos << std::endl;
 }
 
 void srcml2tokenHandlers::setPosition(const Attributes& attrs)
@@ -86,6 +87,8 @@ std::string srcml2tokenHandlers::position(const Attributes& attrs)
         free(line);
         free(col);
     }
+//    std::cout << "calling position " << p << std::endl;
+
     return p;
 }
 
@@ -108,8 +111,10 @@ void srcml2tokenHandlers::startElement(const XMLCh* const //uri
 {
     char *tagLocal = XMLString::transcode(localname);
 //    char *tagName = XMLString::transcode(qname);
-
-    currentPos = position(attrs);
+    std::string tmp = position(attrs);
+    if (tmp != "")  {
+        currentPos = tmp;
+    }
     if (depth <= 1)  {
         setPosition(currentPos);
         //std::cout << "-" << "\t" << tagName << " " << depth << std::endl;
@@ -161,9 +166,10 @@ void srcml2tokenHandlers::characters(  const   XMLCh* const    chars
     std::string st = mytrim(XMLString::transcode(chars));
     std::string node = mystack.top();
 
-    std::replace( st.begin(), st.end(), '\n', ' ');
     
     if (st.length() > 0) {
+        std::replace( st.begin(), st.end(), '\n', ' ');
+
         if (currentContent.length() == 0) {
             setPosition(currentPos);
             currentContent = mystack.top() + "|";
