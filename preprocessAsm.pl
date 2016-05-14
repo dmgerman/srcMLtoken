@@ -38,7 +38,7 @@ foreach my $l (@linesNC) {
 
     $l =~ s/^\s+//;
     $l =~ s/\s+$//;
-    $l =~ s/\s+/ /;
+    $l =~ s/\s+/ /g;
     print "comment|$c\n" if ($c);
    next if $l eq "";
     print "$l\n";
