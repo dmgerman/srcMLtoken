@@ -99,17 +99,15 @@ sub split_comment {
     my $line = shift;
     my $com = "#;@!\|";
 
-    if ($line =~ m@(.*?)//\s(.*)$@) {
+    if ($line =~ m@(.*?)//\s+(.*)$@) {
         return ($1, $2);
     }
 
-    if ($line =~ /^[$com]$/) {
-        return ("","");
+    if ($line =~ /^[$com]+\s(.*)$/) {
+        return ("", $1)
     }
-    
 
-
-    $line =~ /(.*?)[$com]\s(.*)$/;
+    $line =~ /(.*?)\s[$com]+\s+(.*)$/;
     if (defined($2)) {
         return ($1, $2);
     }
