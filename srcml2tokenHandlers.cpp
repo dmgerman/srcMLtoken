@@ -118,11 +118,11 @@ void srcml2tokenHandlers::startElement(const XMLCh* const //uri
     if (depth <= 1)  {
         setPosition(currentPos);
         //std::cout << "-" << "\t" << tagName << " " << depth << std::endl;
-        std::cout << "-:-" << "\t" << "begin_" << tagLocal << std::endl;
+        std::cout << "begin_" << tagLocal << std::endl;
     }
 
     if (currentContent.length() > 0 ) {
-        std::cout << getPosition() << "\t" << currentContent << std::endl;
+        std::cout << currentContent << std::endl;
         currentContent = "";
     }
 
@@ -144,7 +144,7 @@ void srcml2tokenHandlers::endElement (const XMLCh *const /*uri*/,
 
     // No escapes are legal here
     if (currentContent.length() > 0 ) {
-        std::cout << getPosition() << "\t" << currentContent << std::endl;
+        std::cout << currentContent << std::endl;
         currentContent = "";
     } 
 
@@ -155,7 +155,7 @@ void srcml2tokenHandlers::endElement (const XMLCh *const /*uri*/,
     toOutputStack.pop();
     depth--;
     if (depth <= 1) 
-        std::cout << "-:-" << "\t" << "end_" << tagName << std::endl;
+        std::cout << tagName << std::endl;
 
 }
 
